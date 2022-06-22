@@ -22,7 +22,6 @@ contract Students {
                 return EtudiantsArray[i];
             }
         }
-        ret
     }
 
     function getMap(address _addr) public view returns (Etudiant memory) {
