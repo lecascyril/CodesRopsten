@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import SimpleStorageContract from "./contracts/SimpleStorage.json";
 import getWeb3 from "./getWeb3";
+import Address from "./Address.js";
+
 
 import "./App.css";
 
@@ -22,13 +24,26 @@ class App extends Component {
         SimpleStorageContract.abi,
         deployedNetwork && deployedNetwork.address,
       );
-      console.log(instance);
+
+      let options = {
+        fromBlock: 0,                  //Number || "earliest" || "pending" || "latest"
+        toBlock: 'latest'
+      };
+
+      let options1 = {
+        fromBlock: 0,                  //Number || "earliest" || "pending" || "latest"
+      };
+
+      let listAddress = await instance.getPastEvents('dataStored', options);
+
+      instance.events.dataStored(options1)
+						  .on('data', event => listAddress.push(event));
       const response = await instance.methods.get().call();
 
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
-      this.setState({ storageValue: response, web3, accounts, contract: instance});
+      this.setState({ storageValue: response, web3, accounts, contract: instance, addresses:listAddress });
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
@@ -41,10 +56,17 @@ class App extends Component {
   runSet = async () => {
     const { accounts, contract} = this.state;
     let valeur=document.getElementById("valeur").value;
-    await contract.methods.set(valeur).send({ from: accounts[0] });
+    const transac = await contract.methods.set(valeur).send({ from: accounts[0] });
     const response = await contract.methods.get().call();
-    this.setState({storageValue:response});
-  }
+
+
+
+    console.log("l'adresse est celle ci: " + transac.events.dataStored.returnValues.addr);
+    console.log("la data est celle ci: " + transac.events.dataStored.returnValues.data);
+    console.log(transac);
+
+    this.setState({ storageValue: response });
+    };
 
   render() {
     if (!this.state.web3) {
@@ -52,7 +74,7 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <h1>Good to Go!</h1>
+        <Address addr={this.state.accounts} />        <h1>Good to Go!</h1>
         <p>Your Truffle Box is installed and ready.</p>
         <h2>Smart Contract Example</h2>
         <div>The stored value is: {this.state.storageValue}</div>
@@ -62,6 +84,12 @@ class App extends Component {
         <input type="text" id="valeur" />
         <button onClick={this.runSet}>Set the value you wrote inside the blockchain</button>
         <br />
+        <p>Here is the addresses that interacted with the contract, and the value they put</p>
+        <table>
+        {this.state.addresses.map((addresse) => (
+          <tr><td>{addresse.returnValues.addr}</td><td>{addresse.returnValues.data}</td></tr>
+        ))}
+        </table>
       </div>
     );
   }
