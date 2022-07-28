@@ -1,0 +1,9 @@
+//Liste des adresses que vous pouvez whitelister
+[
+    {
+        "address": "address1"
+    },
+    {
+        "address": "address2"
+    }
+]
