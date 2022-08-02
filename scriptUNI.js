@@ -136,7 +136,7 @@ async function main() {
 
     try{
         const tx =  await uniswap.methods.exactInputSingle(params)
-        .send({ value: new BN(value), gasPrice: 20e9, from: '0xe8c127b57553a711d2FDD5Ea492133670ef72957' 
+        .send({ value: new BN(value), gasPrice: 20e9, from: '0xe8c127b57553a711d2FDD5Ea492133670ef72957' });
                    // ADRESSE A CHANGER POUR LA VOTRE
 
 
