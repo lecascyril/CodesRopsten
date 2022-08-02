@@ -1,6 +1,9 @@
 async function main() {
 
     // npm install --prefix . @uniswap/sdk @truffle/hdwallet-provider web3 dotenv
+    // https://github.com/Uniswap/v3-core/blob/main/contracts/UniswapV3Pool.sol
+    // https://github.com/Uniswap/v3-periphery/blob/main/contracts/SwapRouter.sol
+    // Pour l'instant erreur LOK du guard de reentrency : https://docs.uniswap.org/protocol/reference/error-codes
 
     var  Web3  =  require('web3');
 
@@ -137,7 +140,8 @@ async function main() {
                    // ADRESSE A CHANGER POUR LA VOTRE
 
 
-        //0x13bc18faeC7f39Fb5eE428545dBba611267AEAa4 2
+        // Mes address
+        // 0x13bc18faeC7f39Fb5eE428545dBba611267AEAa4 2
         // 0xe8c127b57553a711d2FDD5Ea492133670ef72957 1
         
         console.log("ca maarche");
