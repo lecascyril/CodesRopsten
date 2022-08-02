@@ -36,7 +36,8 @@ async function main() {
     const _tokenIn = dai.address;
     const _tokenOut = weth.address;
     const _fee = 500; // 0.05%
-    const _recipient = "0xe8c127b57553a711d2FDD5Ea492133670ef72957";
+    const _recipient = "0xe8c127b57553a711d2FDD5Ea492133670ef72957"; 
+    // ADRESSE A CHANGER POUR LA VOTRE
 
     const _deadline = Math.floor(Date.now() / 1000) + 60 * 20; // le délai après lequel le trade n’est plus valable 
     const _amountIn = trade.minimumAmountOut(slippageTolerance).raw[0]; // minimum des tokens à récupérer avec une tolérance de 0.050%
@@ -132,7 +133,9 @@ async function main() {
 
     try{
         const tx =  await uniswap.methods.exactInputSingle(params)
-        .send({ value: new BN(value), gasPrice: 20e9, from: '0xe8c127b57553a711d2FDD5Ea492133670ef72957' });
+        .send({ value: new BN(value), gasPrice: 20e9, from: '0xe8c127b57553a711d2FDD5Ea492133670ef72957' 
+                   // ADRESSE A CHANGER POUR LA VOTRE
+
 
         //0x13bc18faeC7f39Fb5eE428545dBba611267AEAa4 2
         // 0xe8c127b57553a711d2FDD5Ea492133670ef72957 1
